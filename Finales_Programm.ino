@@ -67,45 +67,45 @@ void setup() {
 void loop() {
      laserScanner;
      tasterstatusG=digitalRead(tasterG);
-     tasterstatusM=digitalRead(tasterM);
+     tasterstatusM=digitalRead(tasterM);  //Die Tasterzustände werden abgefragt 
      tasterstatusK=digitalRead(tasterK);
 
-   if (tasterstatusG == HIGH){
+   if (tasterstatusG == HIGH){  // Wenn der Taster für die großen Kugeln gedrückt ist und die Größe der gemessenen Kugel auch groß ist, wird die Schranke geöffnet und der Trenner leitet die Kugel zur nächsten Maschine
 
       if (kugelgroese == g){
         servogelbweiter;
         servoblauauf;
         servoblauzu;
       }else{
-        servogelbraus;
+        servogelbraus;    //Wenn nicht, wird die Kugel ins Auffangbecken geleitet
         servoblauauf;
         servoblauzu;
       }
     
    }
 
-   if (tasterstatusM == HIGH){
+   if (tasterstatusM == HIGH){  // Wenn der Taster für die mittleren Kugeln gedrückt ist und die Größe der gemessenen Kugel auch mittel ist, wird die Schranke geöffnet und der Trenner leitet die Kugel zur nächsten Maschine
 
       if (kugelgroese == m){
         servogelbweiter;
         servoblauauf;
         servoblauzu;
       }else{
-        servogelbraus;
+        servogelbraus;  //Wenn nicht, wird die Kugel ins Auffangbecken geleitet
         servoblauauf;
         servoblauzu;
       }
     
    }
 
-   if (tasterstatusK == HIGH){
+   if (tasterstatusK == HIGH){  // Wenn der Taster für die kleinen Kugeln gedrückt ist und die Größe der gemessenen Kugel auch klein ist, wird die Schranke geöffnet und der Trenner leitet die Kugel zur nächsten Maschine
       
       if (kugelgroese == k){
         servogelbweiter;
         servoblauauf;
         servoblauzu;
       }else{
-        servogelbraus;
+        servogelbraus;  //Wenn nicht, wird die Kugel ins Auffangbecken geleitet
         servoblauauf;
         servoblauzu;
       }
@@ -161,85 +161,85 @@ void aufzugFahrt(){
   
    laserScanner; //nächste Kugel wird in den Aufzug gegeben
 }
-int IstKugelgros (){
+int IstKugelgros (){ //hier wird gemessen, ob die Kugel groß ist
 
-  digitalWrite(Laser1, HIGH);
+  digitalWrite(Laser1, HIGH); //Laser1 misst, ob sich dort eib Objekt befindet
   boolean val1 = digitalRead(Detector1);
-    if (val1 == 0){
+    if (val1 == 0){ //befindet sich dort ein Objekt, wird der Wert val1 = 0 gesetzt, ist dieser Null wird kugelgros = true gesetzt, weil die Kugel groß ist
       kugelgros = true;
     }else{
-      kugelgros = false;
+      kugelgros = false; // Wenn die Lichtschranke nicht durchbrochen wird, wird kugelgros = false gesetzt
     }
-  return kugelgros;
+  return kugelgros; //kugelgros wird zurückgegeben 
 
 }
 
 
 int IstKugelmittel (){
-  digitalWrite(Laser2, HIGH);
+  digitalWrite(Laser2, HIGH); //Laser2 misst, ob sich dort eib Objekt befindet
   boolean val2 = digitalRead(Detector2);
-    if (val2 == 0){
+    if (val2 == 0){ //befindet sich dort ein Objekt, wird der Wert val2 = 0 gesetzt, ist dieser Null wird kugelklein = true gesetzt, weil die Kugel mittel ist
       kugelmittel = true;
     }else{
-      kugelmittel = false;
+      kugelmittel = false;  // Wenn die Lichtschranke nicht durchbrochen wird, wird kugelmittel = false gesetzt
     }
-  return kugelmittel;
+  return kugelmittel; //kugelmittel wird zurückgegeben 
 
 }
 
 
 int IstKugelklein (){
-  digitalWrite(Laser3, HIGH);
+  digitalWrite(Laser3, HIGH); //Laser3 misst, ob sich dort eib Objekt befindet
   boolean val3 = digitalRead(Detector3);
-    if (val3 == 0){
+    if (val3 == 0){ //befindet sich dort ein Objekt, wird der Wert val3 = 0 gesetzt, ist dieser Null wird kugelklein = true gesetzt, weil die Kugel klein ist
       kugelklein = true;
     }else{
-      kugelklein = false;
+      kugelklein = false; // Wenn die Lichtschranke nicht durchbrochen wird, wird kugelklein = false gesetzt
     }
-  return kugelklein;
+  return kugelklein;  //kugelklein wird zurückgegeben 
 
 }
 
 
-int sogrosistdieKugel () {
+int sogrosistdieKugel () {  //Hier wird nun die Variabel kugelgroese deklariert
     if (kugelgros == true && kugelmittel == true && kugelklein == true) {
-        kugelgroese = g;
+        kugelgroese = g;  //mit g (für Groß), falls alle Lichtschranken unterbrochen werden
     }
     
     if (kugelgros == false && kugelmittel == true && kugelklein == true) {
-        kugelgroese = m;
+        kugelgroese = m;  //mit m (für Mittel), falls nur die zwei unteren Lichtschranken unterbrochen werden
     }
 
     if (kugelgros == false && kugelmittel == false && kugelklein == true) {
-        kugelgroese = k;
+        kugelgroese = k;  //mit k (für Klein), falls nur die unterste Lichtschranke unterbrochen wird
     }
-  return kugelgroese;
+  return kugelgroese; //die Variable kugelgroese wird zurückgegeben
   
 }
 
 
-int servoblauauf(){
+int servoblauauf(){ //Ein Servomotor dreht sich auf 180°
   
    servoblau.write(180);
  
 }
 
 
-int servoblauzu(){
+int servoblauzu(){  //Ein Servomotor dreht sich auf 0°
   
   servoblau.write(0); 
    
 }
 
 
-int servogelbweiter(){
+int servogelbweiter(){  //Ein Servomotor dreht sich auf 20°
 
   servogelb.write(20);
   
 }
 
 
-int servogelbraus(){
+int servogelbraus(){  //Ein Servomotor dreht sich auf 45°
 
   servogelb.write(45);
   
