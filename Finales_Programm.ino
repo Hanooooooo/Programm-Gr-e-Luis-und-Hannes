@@ -1,3 +1,4 @@
+//hier werden die Variablen deklariert
 int laserEmpfaenger = 21;
 int laserSender = 22;
 int motorgeschwindigkeit1 = 23;
@@ -35,8 +36,7 @@ int tasterstatusM=0;
 int tasterK=11;
 int tasterstatusK=0;
 
-
-
+//Setup aktiviert Ports
 void setup() {
   Serial.begin (9600);
   pinMode(laserSender, OUTPUT);
@@ -62,6 +62,8 @@ void setup() {
   pinMode(tasterK, INPUT);
 }
 
+
+//einzele Programmteile und Unterprogramme laufen ab
 void loop() {
      laserScanner;
      tasterstatusG=digitalRead(tasterG);
@@ -114,50 +116,50 @@ void loop() {
  //ab hier Unterprogramme
 
 void laserScanner(){
-  digitalWrite(laserSender, HIGH);
-  boolean val = digitalRead(laserEmpfaenger);
-  Serial.println(val);
+  digitalWrite(laserSender, HIGH); //Scanner wird aktiveiert
+  boolean val = digitalRead(laserEmpfaenger); //Wert des Scanners wird ausgelesen
+  Serial.println(val); //Wert wird in "val" abgespeichert
 
 
- while(val == 1){
-  digitalWrite(motorUntenRichtungVorne, HIGH);
-  digitalWrite(motorUntenRichtungHinten,LOW);
-  analogWrite(motorgeschwindigkeit1, 200);
+ while(val == 1){ //solange val den Wert 1  annimmt(Laser wird nicht blockiert), fährt der Schieber weiter
+  digitalWrite(motorUntenRichtungVorne, HIGH); //-->Richtung
+  digitalWrite(motorUntenRichtungHinten,LOW); //-->Richtung
+  analogWrite(motorgeschwindigkeit1, 200); //--> Geschwindigkeit
  }
-  digitalWrite(motorUntenRichtungVorne,LOW);
-  digitalWrite(motorUntenRichtungHinten,LOW);
+  digitalWrite(motorUntenRichtungVorne,LOW); //Motor stoppt
+  digitalWrite(motorUntenRichtungHinten,LOW); //Motor stoppt
   
-  aufzugFahrt;
+  aufzugFahrt; //Aufzug fährt mit Kugel nach oben, läd sie aus und kehrt wieder an seine Anfangsposition
 
 }
 
 void aufzugFahrt(){
 
-  digitalWrite(obererKippschalter, HIGH);
-  WertOben = digitalRead(obererKippschalter);
-  Serial.println(WertOben);
+  digitalWrite(obererKippschalter, HIGH); //oberer Kippschalter wird aktiveiert
+  WertOben = digitalRead(obererKippschalter); //Wert des Schalters wird ausgelesen
+  Serial.println(WertOben); //Wert wird in "WertOben" abgespeichert
   
-  while(WertOben == 1){
-    digitalWrite(motorObenRichtungOben, HIGH);
-    digitalWrite(motorObenRichtungUnten, LOW);
-    analogWrite(motorgeschwindigkeit2, 200);
+  while(WertOben == 1){ //solange WertOben den Wert 1  annimmt(Schalter offen ist), fährt der Aufzug weiter nach oben
+    digitalWrite(motorObenRichtungOben, HIGH); //-->Richtung
+    digitalWrite(motorObenRichtungUnten, LOW); //-->Richtung
+    analogWrite(motorgeschwindigkeit2, 200); //--> Geschwindigkeit
   }
-  digitalWrite(motorObenRichtungOben, LOW);
-  digitalWrite(motorObenRichtungUnten, LOW);
+  digitalWrite(motorObenRichtungOben, LOW); //Motor stoppt
+  digitalWrite(motorObenRichtungUnten, LOW); //Motor stoppt
   
-  digitalWrite(untererKippschalter, HIGH);
-  WertOben = digitalRead(untererKippschalter);
-  Serial.println(WertUnten);
+  digitalWrite(untererKippschalter, HIGH); //unterer Kippschalter wird aktiveiert
+  WertOben = digitalRead(untererKippschalter); //Wert des Schalters wird ausgelesen
+  Serial.println(WertUnten); //Wert wird in "WertUnten" abgespeichert
   
-   while(WertUnten == 1){
-    digitalWrite(motorObenRichtungOben, LOW);
-    digitalWrite(motorObenRichtungUnten, HIGH);
-    analogWrite(motorgeschwindigkeit2, 200);
+   while(WertUnten == 1){ //solange WertUnten den Wert 1  annimmt(Schalter offen ist), fährt der Aufzug weiter nach unten
+    digitalWrite(motorObenRichtungOben, LOW); //-->Richtung
+    digitalWrite(motorObenRichtungUnten, HIGH); //-->Richtung
+    analogWrite(motorgeschwindigkeit2, 200); //--> Geschwindigkeit
    }
-  digitalWrite(motorObenRichtungOben, LOW);
-  digitalWrite(motorObenRichtungUnten, LOW);
+  digitalWrite(motorObenRichtungOben, LOW); //Motor stoppt
+  digitalWrite(motorObenRichtungUnten, LOW); //Motor stoppt
   
-   laserScanner; 
+   laserScanner; //nächste Kugel wird in den Aufzug gegeben
 }
 int IstKugelgros (){
 
