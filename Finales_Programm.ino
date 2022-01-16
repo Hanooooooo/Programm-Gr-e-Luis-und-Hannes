@@ -66,6 +66,7 @@ void setup() {
 //einzele Programmteile und Unterprogramme laufen ab
 void loop() {
      laserScanner;
+     aufzugFahrt;
      tasterstatusG=digitalRead(tasterG);
      tasterstatusM=digitalRead(tasterM);  //Die Tasterzustände werden abgefragt 
      tasterstatusK=digitalRead(tasterK);
@@ -129,7 +130,7 @@ void laserScanner(){
   digitalWrite(motorUntenRichtungVorne,LOW); //Motor stoppt
   digitalWrite(motorUntenRichtungHinten,LOW); //Motor stoppt
   
-  aufzugFahrt; //Aufzug fährt mit Kugel nach oben, läd sie aus und kehrt wieder an seine Anfangsposition
+  //aufzugFahrt; //Aufzug fährt mit Kugel nach oben, läd sie aus und kehrt wieder an seine Anfangsposition
 
 }
 
@@ -159,7 +160,7 @@ void aufzugFahrt(){
   digitalWrite(motorObenRichtungOben, LOW); //Motor stoppt
   digitalWrite(motorObenRichtungUnten, LOW); //Motor stoppt
   
-   laserScanner; //nächste Kugel wird in den Aufzug gegeben
+   //laserScanner; //nächste Kugel wird in den Aufzug gegeben
 }
 int IstKugelgros (){ //hier wird gemessen, ob die Kugel groß ist
 
