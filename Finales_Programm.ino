@@ -67,6 +67,16 @@ void setup() {
 void loop() {
      laserScanner;
      aufzugFahrt;
+     groesenScanner;
+  }
+  
+
+
+
+ //ab hier Unterprogramme
+
+void groesenScanner(){
+  
      tasterstatusG=digitalRead(tasterG);
      tasterstatusM=digitalRead(tasterM);  //Die Tasterzustände werden abgefragt 
      tasterstatusK=digitalRead(tasterK);
@@ -96,25 +106,7 @@ void loop() {
         servoblauauf;
         servoblauzu;
       }
-    
-   }
-
-   if (tasterstatusK == HIGH){  // Wenn der Taster für die kleinen Kugeln gedrückt ist und die Größe der gemessenen Kugel auch klein ist, wird die Schranke geöffnet und der Trenner leitet die Kugel zur nächsten Maschine
-      
-      if (kugelgroese == k){
-        servogelbweiter;
-        servoblauauf;
-        servoblauzu;
-      }else{
-        servogelbraus;  //Wenn nicht, wird die Kugel ins Auffangbecken geleitet
-        servoblauauf;
-        servoblauzu;
-      }
-    
-   }
-  }
-  
- //ab hier Unterprogramme
+}
 
 void laserScanner(){
   digitalWrite(laserSender, HIGH); //Scanner wird aktiveiert
